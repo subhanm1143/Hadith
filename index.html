@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Hadiths Website</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="header"> 
+        <p>Daily Hadith</p>
+       <p id="islamicDate"></p>
+    </div>
+    <div id="arabicDiv">
+        <!-- Hadith with ID 1 will be dynamically inserted here -->
+    </div>
+    <div id="englishDiv">
+        <!-- Hadith with ID 1 will be dynamically inserted here -->
+    </div>
+    <div class="info">
+        <p>
+            Sahih Bukhari is one of the most authentic collections of sayings (hadiths) and actions of Prophet Muhammad (peace be upon him) in Islam.</p>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get the current date
+            const currentDate = new Date();
+
+            // Convert to Islamic date
+            const islamicDate = new Intl.DateTimeFormat('en-u-ca-islamic', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+            }).format(currentDate);
+
+            // Display the Islamic date
+            document.getElementById('islamicDate').textContent = `Islamic Date: ${islamicDate}`;
+
+            // Generate a random number between 1 and 7277
+            const randomNum = Math.floor(Math.random() * 7277) + 1;
+
+            // Fetch the JSON data from the file
+            fetch('bukhari.json')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(jsonData => {
+                    // Extract the hadiths array
+                    const hadiths = jsonData.hadiths;
+
+                    // Specify the ID of the desired hadith
+                    const desiredHadithId = randomNum;
+
+                    // Find the hadith with the specified ID
+                    const desiredHadith = hadiths.find(hadith => hadith.id === desiredHadithId);
+
+                    // Check if the desired hadith is available
+                    if (desiredHadith) {
+                        // Insert the Arabic part into the Arabic div
+                        document.getElementById('arabicDiv').innerHTML = `<p>Hadith Number: ${desiredHadithId}</p>
+                            <p>Arabic: ${desiredHadith.arabic}</p>`;
+
+                        // Insert the English parts into the English div
+                        document.getElementById('englishDiv').innerHTML = `
+                            <p>English Narrator: ${desiredHadith.english.narrator}</p>
+                            <p>English Text: ${desiredHadith.english.text}</p>
+                        `;
+                    } else {
+                        console.error(`Hadith with ID ${desiredHadithId} not found.`);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching data:', error);
+                });
+        });
+    </script>
+    <div class="social">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/ZEh6j4HhDNk?si=1yrkZkwnnL-Awp-O" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/E8DTgn4cfcY?si=b6lYxVslTweW0pCa" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/MV0ZRnH6o2E?si=T4xFR0IELJvIx8AK" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/4SYWBUtCBqM?si=xuqcKqJvWHeFKtNh" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    </div>
+</body>
+</html>

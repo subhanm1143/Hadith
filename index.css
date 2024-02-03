@@ -1,0 +1,54 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    background: #000000;
+}
+.header {
+    background-color: rgb(224, 193, 12);;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 9px;
+    color: hsl(0, 0%, 100%);
+    font-size: 20px;
+}
+
+.header p {
+    margin: 0;
+}
+
+.Icons {
+    text-align: right;
+}
+
+#arabicDiv {
+    padding: 20px;
+    text-align: center;
+    color: 	#669ace;
+    font-size: 24px;
+}
+
+#englishDiv {
+    padding: 20px;
+    text-align: center;
+    color: #669ace;
+    font-size: 24px;
+}
+.info {
+    position: fixed;  /* or 'absolute' depending on your design */
+    bottom: 0;
+    width: 100%;
+    padding: 0;
+    text-align: center;
+    background-color: rgb(224, 193, 12);
+    color: #ffffff;
+    font-size: 20px;
+}
+.social {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 9px;
+    color: hsl(0, 0%, 100%);
+    font-size: 20px;
+}
